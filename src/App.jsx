@@ -22,7 +22,6 @@ function App() {
   return (
     <AppContext.Provider value={{}}>
       <div className='min-h-screen w-screen bg-[#04152d] mx-auto'>
-        
         <BrowserRouter>
           <Header/>
           <Routes>
@@ -33,6 +32,7 @@ function App() {
           </Routes>
           <Footer/>
         </BrowserRouter>
+        
         
       </div>
     </AppContext.Provider>

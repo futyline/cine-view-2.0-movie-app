@@ -32,15 +32,15 @@ function HeroBanner(props) {
     }, [])
 
     return (
-        <div className='bg-gradient-to-b from-stone-700 to-stone-800 h-[800px] w-full relative'>
+        <div className='bg-gradient-to-b from-stone-700 to-stone-800 h-[700px] w-full relative'>
             <img src={banner} alt="Banner" className='bg-black w-full h-full object-cover object-top absolute mix-blend-overlay' />
             <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 79.17%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
             <div className='max-w-[900px] w-full h-full mx-auto flex flex-col justify-center'>
-                <h2 className='text-white text-8xl font-bold text-center mb-5 relative'>Welcome.</h2>
-                <p className='text-white text-3xl text-center mb-11 relative'>Millions of movies, TV shows and people to discover. Explore now.</p>
+                <h2 className='text-white text-7xl font-bold text-center mb-5 relative'>Welcome.</h2>
+                <p className='text-white text-2xl text-center mb-11 relative'>Millions of movies, TV shows and people to discover. Explore now.</p>
                 <div className='w-full'>
-                    <input type="text" placeholder='Search for a movie or a tv show...' style={{ width: `calc(100% - 120px)`}}  className='p-6 outline-0 rounded-tl-full rounded-bl-full placeholder-gray-700 text-2xl relative' />  
-                    <button onClick={() => console.log('clicked')} className=' p-6 rounded-tr-full rounded-br-full bg-gradient-to-r from-orange-600 to-amber-500 hover:text-black text-2xl text-white relative'>Search</button>
+                    <input type="text" placeholder='Search for a movie or a tv show...' style={{ width: `calc(100% - 120px)`}}  className='px-6 py-4 outline-0 rounded-tl-full rounded-bl-full placeholder-gray-700 text-xl relative' />  
+                    <button onClick={() => console.log('clicked')} className='px-6 py-4 rounded-tr-full rounded-br-full bg-gradient-to-r from-orange-600 to-amber-500 hover:text-black text-xl text-white relative'>Search</button>
                 </div> 
             </div>
         </div>
