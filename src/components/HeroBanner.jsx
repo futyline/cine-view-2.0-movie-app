@@ -33,9 +33,9 @@ function HeroBanner(props) {
 
     return (
         <div className='bg-gradient-to-b from-stone-700 to-stone-800 h-[700px] w-full relative'>
-            <img src={banner} alt="Banner" className='bg-black w-full h-full object-cover object-top absolute mix-blend-overlay' />
-            <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 79.17%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
-            <div className='max-w-[900px] w-full h-full mx-auto flex flex-col justify-center'>
+            <img src={banner} alt="Banner" className='bg-[#04152d] w-full h-full object-cover object-top absolute mix-blend-overlay' />
+            <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 90%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
+            <div className='max-w-[900px] w-full h-full mx-auto px-5 flex flex-col justify-center'>
                 <h2 className='text-white text-7xl font-bold text-center mb-5 relative'>Welcome.</h2>
                 <p className='text-white text-2xl text-center mb-11 relative'>Millions of movies, TV shows and people to discover. Explore now.</p>
                 <div className='w-full'>

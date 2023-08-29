@@ -14,14 +14,22 @@ import Footer from './components/Footer';
 
 function App() {
 
+  const [apiConfig, setApiConfig] = useState();
+
   useEffect(() => {
+    getConfig()
     fetchDataFromApi("/movie/popular");
   }, [])
   
+  const getConfig = async () => {
+    const config = await fetchApiConfig();
+    setApiConfig(config);
+  }
+  
 
   return (
-    <AppContext.Provider value={{}}>
-      <div className='min-h-screen w-screen bg-[#04152d] mx-auto'>
+    <AppContext.Provider value={apiConfig}>
+      <div className='min-h-screen w-screen bg-[#04152d]'>
         <BrowserRouter>
           <Header/>
           <Routes>

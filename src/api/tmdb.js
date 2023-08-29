@@ -14,7 +14,6 @@ export const fetchDataFromApi = async (url, params) => {
             params,
         });
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (err) {
         console.log(err);
@@ -25,7 +24,6 @@ export const fetchDataFromApi = async (url, params) => {
 export const fetchApiConfig = async () => {
     try {
         const response = await fetchDataFromApi("/configuration");
-        console.log(response);
             const url = {
                 backdrop: response.images.secure_base_url + "original",
                 poster: response.images.secure_base_url + "original",
