@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppContext from './context/context';
 import { fetchDataFromApi } from './api/tmdb';
 import { fetchApiConfig } from './api/tmdb';
+import { fetchMovieGenres } from './api/tmdb';
+import { fetchTvGenres } from './api/tmdb';
 
 import ContentWrapper from './components/ContentWrapper';
 import Homepage from './pages/Homepage';
@@ -15,9 +17,13 @@ import Footer from './components/Footer';
 function App() {
 
   const [apiConfig, setApiConfig] = useState();
+  const [movieGenres, setMovieGenres] = useState();
+  const [tvGenres, setTvGenres] = useState();
 
   useEffect(() => {
-    getConfig()
+    getConfig();
+    getMovieGenres();
+    getTvGenres();
     fetchDataFromApi("/movie/popular");
   }, [])
   
@@ -25,17 +31,26 @@ function App() {
     const config = await fetchApiConfig();
     setApiConfig(config);
   }
-  
+
+  const getMovieGenres = async () => {
+    const movieGenres = await fetchMovieGenres();
+    setMovieGenres(movieGenres);
+  }
+
+  const getTvGenres = async () => {
+    const tvGenres = await fetchTvGenres();
+    setTvGenres(tvGenres);
+  }
 
   return (
-    <AppContext.Provider value={apiConfig}>
+    <AppContext.Provider value={{apiConfig, movieGenres, tvGenres}}>
       <div className='min-h-screen w-screen bg-[#04152d]'>
         <BrowserRouter>
           <Header/>
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/:mediaType/:id" element={<MovieDetails />} />
-            <Route path="/search/:term" element={<SearchResults />} />
+            <Route path="/search/:searchTerm" element={<SearchResults />} />
             <Route path="/explore/:mediaType" element={<Explore />} />
           </Routes>
           <Footer/>

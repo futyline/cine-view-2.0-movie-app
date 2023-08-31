@@ -35,3 +35,24 @@ export const fetchApiConfig = async () => {
             return err;
         }
 };
+
+export const fetchMovieGenres = async () => {
+    try {
+        const movieGenres = await fetchDataFromApi("/genre/movie/list");
+        return movieGenres;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+};
+
+export const fetchTvGenres = async () => {
+    try {
+        const tvGenres = await fetchDataFromApi("/genre/tv/list");
+        return tvGenres;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+};
+

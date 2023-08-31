@@ -1,9 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { fetchDataFromApi } from '../api/tmdb';
 import { fetchApiConfig } from '../api/tmdb';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/context';
 
 function HeroBanner(props) {
+
+    const navigate = useNavigate();
+
+    const [searchTerm, setSearchTerm] = useState("");
 
     const [banner, setBanner] = useState("");
 
@@ -39,8 +44,8 @@ function HeroBanner(props) {
                 <h2 className='text-white text-7xl font-bold text-center mb-5 relative'>Welcome.</h2>
                 <p className='text-white text-2xl text-center mb-11 relative'>Millions of movies, TV shows and people to discover. Explore now.</p>
                 <div className='w-full'>
-                    <input type="text" placeholder='Search for a movie or a tv show...' style={{ width: `calc(100% - 120px)`}}  className='px-6 py-4 outline-0 rounded-tl-full rounded-bl-full placeholder-gray-700 text-xl relative' />  
-                    <button onClick={() => console.log('clicked')} className='px-6 py-4 rounded-tr-full rounded-br-full bg-gradient-to-r from-orange-600 to-amber-500 hover:text-black text-xl text-white relative'>Search</button>
+                    <input type="text" onChange={(e) => setSearchTerm(e.target.value)} placeholder='Search for a movie or a tv show...' style={{ width: `calc(100% - 120px)`}}  className='px-6 py-4 outline-0 rounded-tl-full rounded-bl-full placeholder-gray-700 text-xl relative' />  
+                    <button onClick={() => navigate(`/search/${searchTerm}`)} className='px-6 py-4 rounded-tr-full rounded-br-full bg-gradient-to-r from-orange-600 to-amber-500 hover:text-black text-xl text-white relative'>Search</button>
                 </div> 
             </div>
         </div>
