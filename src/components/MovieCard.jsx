@@ -6,14 +6,14 @@ import dayjs from 'dayjs';
 import AppContext from '../context/context';
 import Genres from './Genres';
 
-function MovieCard({data, id}) {
+function MovieCard({data, id, styles}) {
 
     const {apiConfig} = useContext(AppContext);
 
     const posterUrl = apiConfig && data.poster_path ? apiConfig.poster + data.poster_path : PosterFallback;
 
     return (
-        <div key={id}  className='mr-5'>
+        <div key={id}  style={styles} className='mr-5'>
             <div className='hover:opacity-70 cursor-pointer'>
                 <div className='flex flex-wrap relative'>
                     <img src={posterUrl} alt="No Poster" className='rounded-xl overflow-hidden'/>
@@ -22,7 +22,7 @@ function MovieCard({data, id}) {
                             <CircleRating rating={data.vote_average.toFixed(1)} />
                         </div>
                         <div className='absolute bottom-[10px] right-[10px]'>
-                            {data.genre_ids && <Genres ids={data?.genre_ids.slice(0, 2)}/>}
+                            {data?.genre_ids !== undefined && data?.genre_ids.length > 0 && <Genres ids={data?.genre_ids.slice(0, 2)}/>}
                         </div>
                     </div>      
                 </div>     
