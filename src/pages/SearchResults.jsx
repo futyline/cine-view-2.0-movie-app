@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import { fetchDataFromApi } from '../api/tmdb';
 import { useParams } from "react-router-dom";
@@ -8,8 +8,23 @@ import ContentWrapper from '../components/ContentWrapper';
 function SearchResults() {
 
     const { searchTerm } = useParams();
+    
+    const [data, setData] = useState();
 
+    useEffect(() => {
+      getMoviesBySearchTerm();
+    }, [])
 
+    const getMoviesBySearchTerm = async () => {
+        try {
+            const data = await fetchDataFromApi(`/search/movie?query=${searchTerm}`);
+            setData(data);
+            
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
 
     return (
         <ContentWrapper>

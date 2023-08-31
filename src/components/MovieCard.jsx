@@ -22,7 +22,7 @@ function MovieCard({data, id}) {
                             <CircleRating rating={data.vote_average.toFixed(1)} />
                         </div>
                         <div className='absolute bottom-[10px] right-[10px]'>
-                            <Genres ids={data.genre_ids.slice(0, 2)}/>
+                            {data.genre_ids && <Genres ids={data?.genre_ids.slice(0, 2)}/>}
                         </div>
                     </div>      
                 </div>     

@@ -9,11 +9,8 @@ function Genres({ids}) {
 
     const findGenreNameById = (genreId) => {
         const foundGenre = movieGenres.genres.find(genre => genre.id === genreId) || tvGenres.genres.find(genre => genre.id === genreId);
-        return foundGenre != undefined && foundGenre.name;  
-    } 
-
-    useEffect(() => {
-    }, [])
+        return foundGenre && foundGenre.name;  
+    }
     
     return (
         <div className='flex flex-wrap flex-col flex-wrap gap-2'>

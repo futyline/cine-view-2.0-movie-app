@@ -24,7 +24,6 @@ function App() {
     getConfig();
     getMovieGenres();
     getTvGenres();
-    fetchDataFromApi("/movie/popular");
   }, [])
   
   const getConfig = async () => {
