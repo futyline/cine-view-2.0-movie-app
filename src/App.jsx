@@ -8,7 +8,7 @@ import { fetchTvGenres } from './api/tmdb';
 
 import ContentWrapper from './components/ContentWrapper';
 import Homepage from './pages/Homepage';
-import Explore from './pages/Explore';
+import Explore from './pages/explore/Explore';
 import MovieDetails from './pages/MovieDetails';
 import SearchResults from './pages/searchResults/SearchResults';
 import Header from './components/Header';

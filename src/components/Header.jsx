@@ -29,7 +29,7 @@ function Header(props) {
                     <Link to="/"><img className='h-[35px]' src={logo} alt="logo" /></Link>
                     <ul className='flex items-center ml-auto mr-4 gap-x-9 text-white text-xl'>
                         <li className='hover:text-orange-600'><Link to="/">Home</Link></li>
-                        <li className='hover:text-orange-600'><Link to="/explore/movies">Movies</Link></li>
+                        <li className='hover:text-orange-600'><Link to="/explore/movie">Movies</Link></li>
                         <li className='hover:text-orange-600'><Link to="/explore/tv">TV Shows</Link></li>
                         <li className='hover:text-orange-600'>
                             <button onClick={()=> setShowSearch(true)}>

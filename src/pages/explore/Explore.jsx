@@ -13,51 +13,51 @@ import MovieCard from "../../components/MovieCard"
 
 import "./style.scss";
 
-function SearchResults() {
+function Explore() {
 
-    const { searchTerm } = useParams();
+    const [sortby, setSortby] = useState(null);
+    const { mediaType } = useParams();
     const [ data, setData ] = useState();
 
-    // Pagination
+    // Pagination state vars
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
-
-    const getMoviesBySearchTerm = async () => {
-        try {
-            const data = await fetchDataFromApi(`/search/multi?query=${searchTerm}&page=${currentPage}`);
-            setData(data); 
-            setPageCount(data?.total_pages);
-
-        } catch (err) {
-            console.log(err);
-            return err;
-        }
-    }
-
-    const getNewMoviesBySearchTerm = async () => {
-        try {
-            setCurrentPage(1);
-            const data = await fetchDataFromApi(`/search/multi?query=${searchTerm}`);
-            setData(data); 
-            setPageCount(data?.total_pages);
-
-        } catch (err) {
-            console.log(err);
-            return err;
-        }
-    }
 
     const handlePageChange = ({ selected }) => {
         setCurrentPage(selected + 1); // React Paginate uses 0-based index
     };
 
+    const getMoviesOrTvShows = async () => {
+        try {
+            const data = await fetchDataFromApi(`/discover/${mediaType}?page=${currentPage}`);
+            setData(data); 
+            setPageCount(data?.total_pages > 500 && 500);
+
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    } 
     
-    useEffect(() => {
-        getNewMoviesBySearchTerm();
-    }, [searchTerm]) 
+    const getNewMoviesOrTvShows = async () => {
+        try {
+            setCurrentPage(1);
+            const data = await fetchDataFromApi(`/discover/${mediaType}`);
+            setData(data); 
+            setPageCount(data?.total_pages > 500 && 500);
+
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    } 
 
     useEffect(() => {
-        getMoviesBySearchTerm();
+        getNewMoviesOrTvShows();
+    }, [mediaType])
+
+    useEffect(() => {
+        getMoviesOrTvShows();
     }, [currentPage]) 
 
 
@@ -66,8 +66,8 @@ function SearchResults() {
             {data?.results?.length > 0 ? 
             (
                 <>
-                    <div className='flex justify-between mb-5 pt-[80px] mb-4'>
-                        <h2 className='text-white text-2xl font-medium mb-4'>Search Results of "{searchTerm}"</h2>
+                    <div className='flex justify-between mb-5 pt-[100px] mb-4'>
+                        <h2 className='text-white text-2xl font-medium mb-10'>Explore {mediaType === "movie" ? ("Movies") : ("TV Shows")}</h2>
                     </div>
 
                     <div className='mb-[50px]'>
@@ -118,4 +118,4 @@ function SearchResults() {
     );
 }
 
-export default SearchResults;
+export default Explore;
