@@ -10,7 +10,9 @@ function MovieCard({data, id, styles}) {
 
     const {apiConfig} = useContext(AppContext);
 
-    const posterUrl = apiConfig && data.poster_path ? apiConfig.poster + data.poster_path : PosterFallback;
+    const posterUrl = apiConfig && data.poster_path ? apiConfig.poster + data.poster_path 
+                    : apiConfig && data.known_for?.[0].poster_path ? apiConfig.poster + data.known_for?.[0].poster_path 
+                    : PosterFallback;
 
     return (
         <div key={id}  style={styles} className='mr-5'>
@@ -19,7 +21,7 @@ function MovieCard({data, id, styles}) {
                     <img src={posterUrl} alt="No Poster" className='rounded-xl overflow-hidden'/>
                     <div className=''>
                         <div className='absolute bottom-[-20px] left-[10px]'>
-                            <CircleRating rating={data.vote_average.toFixed(1)} />
+                            {<CircleRating rating={data?.vote_average ? data.vote_average.toFixed(1) : "0.0"} />}
                         </div>
                         <div className='absolute bottom-[10px] right-[10px]'>
                             {data?.genre_ids !== undefined && data?.genre_ids.length > 0 && <Genres ids={data?.genre_ids.slice(0, 2)}/>}
@@ -29,7 +31,7 @@ function MovieCard({data, id, styles}) {
 
                 <div className='mt-7'>
                     <p className='text-white text-xl mb-2.5'>{data.title ? data.title : data.name}</p>
-                    <p className='text-gray-500 text-sm'>{dayjs(data.release_date ? data.release_date : data.first_air_date).format("MMM D, YYYY")}</p>
+                    <p className='text-gray-500 text-sm'>{data.release_date || data.first_air_date ? dayjs(data.release_date ? data.release_date : data.first_air_date).format("MMM D, YYYY") : "Invalid Date"}</p>
                 </div>
             </div>
         </div>

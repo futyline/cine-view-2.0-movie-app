@@ -10,7 +10,7 @@ import ContentWrapper from './components/ContentWrapper';
 import Homepage from './pages/Homepage';
 import Explore from './pages/Explore';
 import MovieDetails from './pages/MovieDetails';
-import SearchResults from './pages/SearchResults';
+import SearchResults from './pages/searchResults/SearchResults';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
