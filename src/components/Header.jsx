@@ -47,7 +47,7 @@ function Header(props) {
                         <button onClick={() => searchTerm.length > 0 && navigate(`/search/${searchTerm}`)}> 
                             <FaMagnifyingGlass className='text-gray-700' size="30px"/>
                         </button>
-                        <button onClick={() => setShowSearch(false)} className='text-4xl text-gray-700'>
+                        <button onClick={() => {setSearchTerm(""); setShowSearch(false)}} className='text-4xl text-gray-700'>
                             X
                         </button>
                     </div>
