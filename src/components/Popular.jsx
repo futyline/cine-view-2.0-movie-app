@@ -30,7 +30,7 @@ function Popular(props) {
                 <h2 className='text-white text-2xl font-medium'>What's Popular</h2>
                 <TabSwitch tabOne="Movies" tabTwo="TV Shows" endpointOne="movie" endpointTwo="tv" setEndpoint={setEndpoint}/>
             </div>
-            <Carousel data={data}/>
+            <Carousel mediaType={endpoint === "movie" ? "movie" : "tv"} data={data}/>
         </div>
     );
 }

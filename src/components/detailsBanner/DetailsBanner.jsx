@@ -1,0 +1,137 @@
+import {useState, useEffect , useContext} from 'react';
+
+import PosterFallback from '../../assets/no-poster.png'
+import CircleRatingDetails from '../../components/detailsBanner/CircleRatingDetails';
+import { useParams } from 'react-router-dom';
+import { fetchDataFromApi } from '../../api/tmdb';
+import dayjs from 'dayjs';
+import AppContext from '../../context/context';
+
+function DetailsBanner(props) {
+
+    const { mediaType, id } = useParams();
+    const [details, setDetails] = useState();
+    const [videos, setVideos] = useState();
+    const [credits, setCredits] = useState();
+
+    const {apiConfig} = useContext(AppContext);
+
+    const posterUrl = apiConfig?.poster && details?.poster_path ? apiConfig.poster + details.poster_path : PosterFallback;
+    const backdropUrl = apiConfig?.backdrop && details?.backdrop_path ? apiConfig.backdrop + details.backdrop_path : PosterFallback;
+
+    const directors = [];
+    credits?.crew?.forEach((person) => {
+    if (person.job === "Director") {
+        directors.push(person.name);
+    }
+    });
+
+    const writers = [];
+    credits?.crew?.forEach((person) => {
+    if (person.job === "Screenplay" || person.job === "Story" || person.job === "Writer") {
+        writers.push(person.name);
+    }
+    });
+
+    // const director = crew?.filter((f) => f.job === "Director");
+    // const writer = crew?.filter(
+    //     (f) => f.job === "Screenplay" || f.job === "Story" || f.job === "Writer"
+    // );
+
+    const getDetails = async () => {
+        try {
+            const data = await fetchDataFromApi(`/${mediaType}/${id}`);
+            setDetails(data);
+            
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
+    const getVideos = async () => {
+        try {
+            const data = await fetchDataFromApi(`/${mediaType}/${id}/videos`);
+            setVideos(data);
+            
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
+    const getCredits = async () => {
+        try {
+            const data = await fetchDataFromApi(`/${mediaType}/${id}/credits`);
+            setCredits(data);
+            
+        } catch (err) {
+            console.log(err);
+            return err;
+        }
+    }
+
+    const toHoursAndMinutes = (totalMinutes) => {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
+    };
+
+    useEffect(() => {
+        getDetails();
+        getCredits();
+        getVideos();
+      }, [])
+
+    return (
+        <div className='h-[700px] w-full relative'>
+            <img src={backdropUrl} alt="Banner" className='bg-[#04152d] w-full h-full object-cover object-top absolute opacity-[.1]' />
+            <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 90%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
+            <div className='max-w-[1200px] w-full h-full mx-auto px-5 flex items-center justify-center gap-8 pt-[140px]'>
+                <div className='flex flex-col w-[525px] h-full'>
+                    <img src={posterUrl} alt="Movie Image" className='rounded-lg w-full object-cover h-full relative'/>
+                </div>
+                <div className='flex flex-wrap flex-col w-full h-full'>
+                    <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.original_title}</h2>
+                    <p className='text-gray-400 font-bold text-xl mb-3 relative'>{details?.tagline}</p>
+                    <div className='flex flex-wrap gap-2 mb-3 relative'>
+                        {details?.genres.length > 0 && details?.genres.map((g, i) => (
+                            <div key={i} className='text-white bg-rose-500 rounded-xl py-1 px-2 text-center text-xs'>{g.name}</div>
+                        ))}
+                    </div>
+                    <div className='flex gap-4 mb-3'>
+                        <div className='relative'>
+                            {<CircleRatingDetails rating={details?.vote_average ? details.vote_average.toFixed(1) : "0.0"}/>}
+                        </div>
+
+                        <button onClick={() => console.log("clicked")} className='bg-white rounded-full cursor-pointer relative'>
+                            PLAY VIDEO b
+                        </button>
+                    </div>
+                    <div className='w-full pr-[100px] relative mb-8'>
+                        <h3 className='text-white text-2xl mb-2'>Overview</h3>
+                        <p className='text-white break-words'>{details?.overview ? details.overview : "Not Available"}</p>
+                    </div>
+                    
+                    <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
+                        <p className='text-white font-bold'>Status: <span className='opacity-50 font-normal'>{details?.status ? details.status : "Not Available"}</span></p>
+                        <p className='text-white font-bold'>Released Date: <span className='opacity-50 font-normal'>{details?.release_date ? dayjs(details?.release_date).format("MMM D, YYYY") : "Not Available"}</span></p>
+                        <p className='text-white font-bold'>Runtime: <span className='opacity-50 font-normal'>{details?.runtime ? toHoursAndMinutes(details.runtime) : "Not Available"}</span></p>
+                    </div>
+
+                    <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
+                        <p className='text-white font-bold'>Director: <span className='opacity-50 font-normal'>{directors?.length > 0 ? directors.join(", ") : "Not Available"}</span></p>
+                    </div>
+
+                    <div className='flex gap-4 relative pb-5 border-b-[1px] border-solid border-gray-600'>
+                        <p className='text-white font-bold'>Writer: <span className='opacity-50 font-normal'>{writers?.length > 0 ? writers.join(", ") : "Not Available"}</span></p>
+                    </div>
+                               
+                </div>
+                
+            </div>
+        </div>
+    );
+}
+
+export default DetailsBanner;

@@ -1,12 +1,14 @@
 import { useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PosterFallback from '../assets/no-poster.png'
 import CircleRating from './circleRating/CircleRating';
 import dayjs from 'dayjs';
 import AppContext from '../context/context';
 import Genres from './Genres';
 
-function MovieCard({data, id, styles}) {
+function MovieCard({data, id, styles, mediaType}) {
+
+    const navigate = useNavigate();
 
     const {apiConfig} = useContext(AppContext);
 
@@ -15,7 +17,7 @@ function MovieCard({data, id, styles}) {
                     : PosterFallback;
 
     return (
-        <div key={id}  style={styles} className='mr-5'>
+        <div key={id} onClick={() => navigate(`/${data.media_type || mediaType}/${data.id}`)} style={styles} className='mr-5'>
             <div className='hover:opacity-70 cursor-pointer'>
                 <div className='flex flex-wrap relative'>
                     <img src={posterUrl} alt="No Poster" className='rounded-xl overflow-hidden'/>

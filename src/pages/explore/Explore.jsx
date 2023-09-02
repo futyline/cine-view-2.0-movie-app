@@ -87,7 +87,7 @@ function Explore() {
 
                     <div className='flex flex-wrap'>
                         {data?.results.map((movie, id) => (
-                            <MovieCard data={movie} key={id} styles={{width: `calc(20% - 20px)`, aspectRatio: `1/1.5`, marginBottom: '30px'}} />
+                            <MovieCard data={movie} key={id} mediaType={mediaType} styles={{width: `calc(20% - 20px)`, aspectRatio: `1/1.5`, marginBottom: '30px'}} />
                         ))}
                     </div>
 

@@ -30,7 +30,7 @@ function Trending(props) {
                 <h2 className='text-white text-2xl font-medium'>Trending</h2>
                 <TabSwitch tabOne="Day" tabTwo="Week" endpointOne="day" endpointTwo="week" setEndpoint={setEndpoint}/>
             </div>
-            <Carousel data={data}/>
+            <Carousel mediaType="movie" data={data}/>
         </div>      
     );
 }
