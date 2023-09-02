@@ -87,12 +87,12 @@ function DetailsBanner(props) {
         <div className='h-[700px] w-full relative'>
             <img src={backdropUrl} alt="Banner" className='bg-[#04152d] w-full h-full object-cover object-top absolute opacity-[.1]' />
             <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 90%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
-            <div className='max-w-[1200px] w-full h-full mx-auto px-5 flex items-center justify-center gap-8 pt-[140px]'>
-                <div className='flex flex-col w-[525px] h-full'>
+            <div className='max-w-[1200px] w-full h-full mx-auto px-5 flex items-center justify-center gap-8 pt-[140px] overflow-hidden'>
+                <div className='flex flex-col w-[50%] h-full'>
                     <img src={posterUrl} alt="Movie Image" className='rounded-lg w-full object-cover h-full relative'/>
                 </div>
-                <div className='flex flex-wrap flex-col w-full h-full'>
-                    <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.original_title}</h2>
+                <div className='flex flex: 1 flex-col w-full h-full overflow-y-auto relative'> 
+                    <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.original_title || details?.original_name }</h2>
                     <p className='text-gray-400 font-bold text-xl mb-3 relative'>{details?.tagline}</p>
                     <div className='flex flex-wrap gap-2 mb-3 relative'>
                         {details?.genres.length > 0 && details?.genres.map((g, i) => (
@@ -115,7 +115,7 @@ function DetailsBanner(props) {
                     
                     <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
                         <p className='text-white font-bold'>Status: <span className='opacity-50 font-normal'>{details?.status ? details.status : "Not Available"}</span></p>
-                        <p className='text-white font-bold'>Released Date: <span className='opacity-50 font-normal'>{details?.release_date ? dayjs(details?.release_date).format("MMM D, YYYY") : "Not Available"}</span></p>
+                        <p className='text-white font-bold'>Released Date: <span className='opacity-50 font-normal'>{details?.release_date || details?.first_air_date ? dayjs(details?.release_date || details?.first_air_date).format("MMM D, YYYY") : "Not Available"}</span></p>
                         <p className='text-white font-bold'>Runtime: <span className='opacity-50 font-normal'>{details?.runtime ? toHoursAndMinutes(details.runtime) : "Not Available"}</span></p>
                     </div>
 
