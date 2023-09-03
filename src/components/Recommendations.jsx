@@ -4,7 +4,7 @@ import { fetchDataFromApi } from '../api/tmdb';
 import Carousel from './carousel/Carousel';
 import { useParams } from 'react-router-dom';
 
-function Recommendations(props) {
+function Recommendations({setId}) {
 
     const { mediaType, id } = useParams();
     const [recommendations, setRecommendations] = useState();
@@ -29,7 +29,7 @@ function Recommendations(props) {
             <div className='flex justify-between mb-5'>
                 <h2 className='text-white text-2xl font-medium'>Recommendations</h2>
             </div>
-            <Carousel mediaType={mediaType === "movie" ? "movie" : "tv"} data={recommendations}/>
+            <Carousel mediaType={mediaType === "movie" ? "movie" : "tv"} data={recommendations} setId={setId}/>
         </div>
     );
 }

@@ -5,7 +5,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import {BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill} from 'react-icons/bs';
 import "./style.scss";
 
-function Carousel({data, mediaType}) {
+function Carousel({data, mediaType, setId}) {
 
     const responsive = {
         0: { items: 1 },
@@ -13,8 +13,8 @@ function Carousel({data, mediaType}) {
         1024: { items: 5 },
     };
     
-    const items = data?.results.map((movie, id) => (
-     <MovieCard mediaType={mediaType} data={movie} key={id} />
+    const items = data?.results?.map((movie, id) => (
+        <MovieCard mediaType={mediaType} data={movie} key={id} setId={setId} />
     ));
 
     return (

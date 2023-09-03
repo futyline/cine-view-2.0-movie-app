@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import AppContext from '../context/context';
 import Genres from './Genres';
 
-function MovieCard({data, id, styles, mediaType}) {
+function MovieCard({data, id, styles, mediaType, setId}) {
 
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ function MovieCard({data, id, styles, mediaType}) {
                     : PosterFallback;
 
     return (
-        <div key={id} onClick={() => navigate(`/${data.media_type || mediaType}/${data.id}`)} style={styles} className='mr-5'>
+        <div key={id} onClick={() => {navigate(`/${data.media_type || mediaType}/${data.id}`), setId(data.id)}} style={styles} className='mr-5'>
             <div className='hover:opacity-70 cursor-pointer'>
                 <div className='flex flex-wrap relative'>
                     <img src={posterUrl} alt="No Poster" className='rounded-xl overflow-hidden'/>

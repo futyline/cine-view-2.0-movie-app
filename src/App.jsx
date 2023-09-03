@@ -53,9 +53,7 @@ function App() {
             <Route path="/explore/:mediaType" element={<Explore />} />
           </Routes>
           <Footer/>
-        </BrowserRouter>
-        
-        
+        </BrowserRouter>     
       </div>
     </AppContext.Provider>
     

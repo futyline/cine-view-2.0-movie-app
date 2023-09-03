@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 import DetailsBanner from '../components/detailsBanner/DetailsBanner';
@@ -10,14 +10,27 @@ import ContentWrapper from '../components/ContentWrapper';
 
 function MovieDetails() {  
 
+    const [id, setId] = useState();
+
+    useEffect(() => {
+        if (id !== undefined) {
+            window.location.reload();
+        }       
+    }, [id])
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+    
+    
     return (
         <>
             <DetailsBanner/>
             <ContentWrapper>
-                <Cast/>
-                <Videos/>
-                <Similar/>
-                <Recommendations/>
+                <Cast />
+                <Videos />
+                <Similar setId={setId} />
+                <Recommendations setId={setId}/>
             </ContentWrapper>
         </>
     );

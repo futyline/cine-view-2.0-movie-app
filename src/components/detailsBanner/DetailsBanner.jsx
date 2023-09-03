@@ -84,7 +84,7 @@ function DetailsBanner(props) {
       }, [])
 
     return (
-        <div className='h-[700px] w-full relative'>
+        <div className='h-[700px] w-full relative mb-12'>
             <img src={backdropUrl} alt="Banner" className='bg-[#04152d] w-full h-full object-cover object-top absolute opacity-[.1]' />
             <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 90%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
             <div className='max-w-[1200px] w-full h-full mx-auto px-5 flex items-center justify-center gap-8 pt-[140px] overflow-hidden'>

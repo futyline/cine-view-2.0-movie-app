@@ -4,7 +4,7 @@ import { fetchDataFromApi } from '../api/tmdb';
 import Carousel from './carousel/Carousel';
 import { useParams } from 'react-router-dom';
 
-function Similar(props) {
+function Similar({setId}) {
 
     const { mediaType, id } = useParams();
     const [similar, setSimilar] = useState();
@@ -31,7 +31,7 @@ function Similar(props) {
             <div className='flex justify-between mb-5'>
                 <h2 className='text-white text-2xl font-medium'>{title}</h2>
             </div>
-            <Carousel mediaType={mediaType === "movie" ? "movie" : "tv"} data={similar}/>
+            <Carousel mediaType={mediaType === "movie" ? "movie" : "tv"} data={similar} setId={setId}/>
         </div>
     );
 }
