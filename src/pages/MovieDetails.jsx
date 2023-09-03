@@ -15,11 +15,13 @@ function MovieDetails() {
     const { mediaType, id: movieId } = useParams();
     const [id, setId] = useState();
     const [isVideoModalVisible, setIsVideoModalVisible] = useState(false);
-    const [videoKey, setVideoKey] = useState();
+    const [videos, setVideos] = useState();
+    const [videoKey, setVideoKey] = useState("");
 
     const getVideos = async () => {
         try {
             const data = await fetchDataFromApi(`/${mediaType}/${movieId}/videos`);
+            setVideos(data);
             setVideoKey(data?.results?.[0]?.key);
             
         } catch (err) {
@@ -45,7 +47,7 @@ function MovieDetails() {
             <DetailsBanner setVideoKey={setVideoKey} videoKey={videoKey} setIsVideoModalVisible={setIsVideoModalVisible}/>
             <ContentWrapper>
                 <Cast />
-                <Videos />
+                <Videos videos={videos} setVideoKey={setVideoKey} videoKey={videoKey} setIsVideoModalVisible={setIsVideoModalVisible}/>
                 <Similar setId={setId} />
                 <Recommendations setId={setId}/>
             </ContentWrapper>
