@@ -8,13 +8,15 @@ import { fetchDataFromApi } from '../../api/tmdb';
 import dayjs from 'dayjs';
 import AppContext from '../../context/context';
 import { useNavigate } from 'react-router-dom';
+import VideoModal from '../VideoModal';
 
-function DetailsBanner(props) {
+function DetailsBanner({setIsVideoModalVisible, videoKey, setVideoKey}) {
 
     const { mediaType, id } = useParams();
     const [details, setDetails] = useState();
-    const [videos, setVideos] = useState();
     const [credits, setCredits] = useState();
+
+    
 
     const navigate = useNavigate();
     const {apiConfig} = useContext(AppContext);
@@ -52,16 +54,7 @@ function DetailsBanner(props) {
         }
     }
 
-    const getVideos = async () => {
-        try {
-            const data = await fetchDataFromApi(`/${mediaType}/${id}/videos`);
-            setVideos(data);
-            
-        } catch (err) {
-            console.log(err);
-            return err;
-        }
-    }
+    
 
     const getCredits = async () => {
         try {
@@ -83,57 +76,60 @@ function DetailsBanner(props) {
     useEffect(() => {
         getDetails();
         getCredits();
-        getVideos();
       }, [])
 
     return (
-        <div className='h-[700px] w-full relative mb-12'>
-            <img src={backdropUrl} alt="Banner" className='bg-[#04152d] w-full h-full object-cover object-top absolute opacity-[.1]' />
-            <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 90%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
-            <div className='max-w-[1200px] w-full h-full mx-auto px-5 flex items-center justify-center gap-8 pt-[140px] overflow-hidden'>
-                <div className='flex flex-col w-[50%] h-full'>
-                    <img src={posterUrl} alt="Movie Image" className='rounded-lg w-full object-cover h-full relative'/>
-                </div>
-                <div className='flex flex: 1 flex-col w-full h-full overflow-y-auto relative'> 
-                    <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.title || details?.original_title || details?.original_name }</h2>
-                    <p className='text-gray-400 font-bold text-xl mb-3 relative'>{details?.tagline}</p>
-                    <div className='flex flex-wrap gap-2 mb-3 relative'>
-                        {details?.genres.length > 0 && details?.genres.map((g, i) => (
-                            <div key={i} className='text-white bg-rose-500 rounded-xl py-1 px-2 text-center text-xs'>{g.name}</div>
-                        ))}
+        <>
+            <div className='h-[700px] w-full relative mb-12'>
+                <img src={backdropUrl} alt="Banner" className='bg-[#04152d] w-full h-full object-cover object-top absolute opacity-[.1]' />
+                <div style={{background: `linear-gradient(180deg,rgba(4,21,45,0) 0%,#04152d 90%)`}} className='w-full h-[250px] absolute bottom-0 left-0'></div>
+                <div className='max-w-[1200px] w-full h-full mx-auto px-5 flex items-center justify-center gap-8 pt-[140px] overflow-hidden'>
+                    <div className='flex flex-col w-[50%] h-full'>
+                        <img src={posterUrl} alt="Movie Image" className='rounded-lg w-full object-cover h-full relative'/>
                     </div>
-                    <div className='flex gap-4 mb-3'>
-                        <div className='relative'>
-                            {<CircleRatingDetails rating={details?.vote_average ? details.vote_average.toFixed(1) : "0.0"}/>}
+                    <div className='flex flex: 1 flex-col w-full h-full overflow-y-auto relative'> 
+                        <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.title || details?.original_title || details?.original_name }</h2>
+                        <p className='text-gray-400 font-bold text-xl mb-3 relative'>{details?.tagline}</p>
+                        <div className='flex flex-wrap gap-2 mb-3 relative'>
+                            {details?.genres.length > 0 && details?.genres.map((g, i) => (
+                                <div key={i} className='text-white bg-rose-500 rounded-xl py-1 px-2 text-center text-xs'>{g.name}</div>
+                            ))}
                         </div>
-                        <button onClick={() => window.open(`https://www.youtube.com/watch?v=${videos?.results?.[0].key}`, '_blank')} className='flex items-center cursor-pointer relative gap-5 text-white hover:text-rose-700'>
-                            <BsPlayCircle className='w-[100px] h-[100px]' /> 
-                            <span className='text-2xl'>Watch Trailer</span>
-                        </button>
-                    </div>
-                    <div className='w-full pr-[100px] relative mb-8'>
-                        <h3 className='text-white text-2xl mb-2'>Overview</h3>
-                        <p className='text-white break-words'>{details?.overview ? details.overview : "Not Available"}</p>
+                        <div className='flex gap-4 mb-3'>
+                            <div className='relative'>
+                                {<CircleRatingDetails rating={details?.vote_average ? details.vote_average.toFixed(1) : "0.0"}/>}
+                            </div>
+                            {/* window.open(`https://www.youtube.com/watch?v=${videos?.results?.[0].key}`, '_blank') */}
+                            <button onClick={() => {setIsVideoModalVisible(true); setVideoKey(videoKey); }} className='flex items-center cursor-pointer relative gap-5 text-white hover:text-rose-700'>
+                                <BsPlayCircle className='w-[100px] h-[100px]' /> 
+                                <span className='text-2xl'>Watch Trailer</span>
+                            </button>
+                        </div>
+                        <div className='w-full pr-[100px] relative mb-8'>
+                            <h3 className='text-white text-2xl mb-2'>Overview</h3>
+                            <p className='text-white break-words'>{details?.overview ? details.overview : "Not Available"}</p>
+                        </div>
+                        
+                        <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
+                            <p className='text-white font-bold'>Status: <span className='opacity-50 font-normal'>{details?.status ? details.status : "Not Available"}</span></p>
+                            <p className='text-white font-bold'>Released Date: <span className='opacity-50 font-normal'>{details?.release_date || details?.first_air_date ? dayjs(details?.release_date || details?.first_air_date).format("MMM D, YYYY") : "Not Available"}</span></p>
+                            <p className='text-white font-bold'>Runtime: <span className='opacity-50 font-normal'>{details?.runtime ? toHoursAndMinutes(details.runtime) : "Not Available"}</span></p>
+                        </div>
+
+                        <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
+                            <p className='text-white font-bold'>Director: <span className='opacity-50 font-normal'>{directors?.length > 0 ? directors.join(", ") : "Not Available"}</span></p>
+                        </div>
+
+                        <div className='flex gap-4 relative pb-5 border-b-[1px] border-solid border-gray-600'>
+                            <p className='text-white font-bold'>Writer: <span className='opacity-50 font-normal'>{writers?.length > 0 ? writers.join(", ") : "Not Available"}</span></p>
+                        </div>
+                                
                     </div>
                     
-                    <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
-                        <p className='text-white font-bold'>Status: <span className='opacity-50 font-normal'>{details?.status ? details.status : "Not Available"}</span></p>
-                        <p className='text-white font-bold'>Released Date: <span className='opacity-50 font-normal'>{details?.release_date || details?.first_air_date ? dayjs(details?.release_date || details?.first_air_date).format("MMM D, YYYY") : "Not Available"}</span></p>
-                        <p className='text-white font-bold'>Runtime: <span className='opacity-50 font-normal'>{details?.runtime ? toHoursAndMinutes(details.runtime) : "Not Available"}</span></p>
-                    </div>
-
-                    <div className='flex gap-4 relative pb-5 mb-2 border-b-[1px] border-solid border-gray-600'>
-                        <p className='text-white font-bold'>Director: <span className='opacity-50 font-normal'>{directors?.length > 0 ? directors.join(", ") : "Not Available"}</span></p>
-                    </div>
-
-                    <div className='flex gap-4 relative pb-5 border-b-[1px] border-solid border-gray-600'>
-                        <p className='text-white font-bold'>Writer: <span className='opacity-50 font-normal'>{writers?.length > 0 ? writers.join(", ") : "Not Available"}</span></p>
-                    </div>
-                               
                 </div>
-                
             </div>
-        </div>
+            
+        </>
     );
 }
 
