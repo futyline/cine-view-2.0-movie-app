@@ -32,7 +32,9 @@ function MovieDetails() {
 
     useEffect(() => {
         if (id) {
-            window.location.reload();
+            setTimeout(function(){
+                window.location.reload();
+            },5000); 
         }       
     }, [id])
 
