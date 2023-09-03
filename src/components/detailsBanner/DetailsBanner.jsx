@@ -1,4 +1,5 @@
 import {useState, useEffect , useContext} from 'react';
+
 import {BsCollectionPlay, BsPlayCircle} from 'react-icons/bs'
 import PosterFallback from '../../assets/no-poster.png'
 import CircleRatingDetails from '../../components/detailsBanner/CircleRatingDetails';
@@ -6,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { fetchDataFromApi } from '../../api/tmdb';
 import dayjs from 'dayjs';
 import AppContext from '../../context/context';
+import { useNavigate } from 'react-router-dom';
 
 function DetailsBanner(props) {
 
@@ -14,6 +16,7 @@ function DetailsBanner(props) {
     const [videos, setVideos] = useState();
     const [credits, setCredits] = useState();
 
+    const navigate = useNavigate();
     const {apiConfig} = useContext(AppContext);
 
     const posterUrl = apiConfig?.poster && details?.poster_path ? apiConfig.poster + details.poster_path : PosterFallback;
@@ -103,7 +106,7 @@ function DetailsBanner(props) {
                         <div className='relative'>
                             {<CircleRatingDetails rating={details?.vote_average ? details.vote_average.toFixed(1) : "0.0"}/>}
                         </div>
-                        <button onClick={() => console.log("clicked")} className='flex items-center cursor-pointer relative gap-5 text-white hover:text-rose-700'>
+                        <button onClick={() => window.open(`https://www.youtube.com/watch?v=${videos?.results?.[0].key}`, '_blank')} className='flex items-center cursor-pointer relative gap-5 text-white hover:text-rose-700'>
                             <BsPlayCircle className='w-[100px] h-[100px]' /> 
                             <span className='text-2xl'>Watch Trailer</span>
                         </button>
