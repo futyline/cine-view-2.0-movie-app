@@ -18,7 +18,7 @@ function Footer(props) {
                         <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                         <ul className="text-gray-500 dark:text-gray-400 font-medium">
                             <li className="mb-4">
-                                <a href="/explore/movies" className="hover:underline">Movies</a>
+                                <a href="/explore/movie" className="hover:underline">Movies</a>
                             </li>
                             <li>
                                 <a href="/explore/tv" className="hover:underline">TV Shows</a>

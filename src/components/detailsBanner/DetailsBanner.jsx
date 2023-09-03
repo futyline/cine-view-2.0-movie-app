@@ -1,5 +1,5 @@
 import {useState, useEffect , useContext} from 'react';
-
+import {BsCollectionPlay, BsPlayCircle} from 'react-icons/bs'
 import PosterFallback from '../../assets/no-poster.png'
 import CircleRatingDetails from '../../components/detailsBanner/CircleRatingDetails';
 import { useParams } from 'react-router-dom';
@@ -92,7 +92,7 @@ function DetailsBanner(props) {
                     <img src={posterUrl} alt="Movie Image" className='rounded-lg w-full object-cover h-full relative'/>
                 </div>
                 <div className='flex flex: 1 flex-col w-full h-full overflow-y-auto relative'> 
-                    <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.original_title || details?.original_name }</h2>
+                    <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.title || details?.original_title || details?.original_name }</h2>
                     <p className='text-gray-400 font-bold text-xl mb-3 relative'>{details?.tagline}</p>
                     <div className='flex flex-wrap gap-2 mb-3 relative'>
                         {details?.genres.length > 0 && details?.genres.map((g, i) => (
@@ -103,9 +103,9 @@ function DetailsBanner(props) {
                         <div className='relative'>
                             {<CircleRatingDetails rating={details?.vote_average ? details.vote_average.toFixed(1) : "0.0"}/>}
                         </div>
-
-                        <button onClick={() => console.log("clicked")} className='bg-white rounded-full cursor-pointer relative'>
-                            PLAY VIDEO b
+                        <button onClick={() => console.log("clicked")} className='flex items-center cursor-pointer relative gap-5 text-white hover:text-rose-700'>
+                            <BsPlayCircle className='w-[100px] h-[100px]' /> 
+                            <span className='text-2xl'>Watch Trailer</span>
                         </button>
                     </div>
                     <div className='w-full pr-[100px] relative mb-8'>

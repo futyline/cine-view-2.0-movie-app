@@ -54,6 +54,7 @@ function Explore() {
 
     useEffect(() => {
         getNewMoviesOrTvShows();
+        window.scrollTo(0, 0);
     }, [mediaType])
 
     useEffect(() => {

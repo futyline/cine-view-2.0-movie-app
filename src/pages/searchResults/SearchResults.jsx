@@ -51,6 +51,9 @@ function SearchResults() {
         setCurrentPage(selected + 1); // React Paginate uses 0-based index
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
     
     useEffect(() => {
         getNewMoviesBySearchTerm();
