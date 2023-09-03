@@ -31,7 +31,7 @@ function MovieDetails() {
     }
 
     useEffect(() => {
-        if (id !== undefined) {
+        if (id) {
             window.location.reload();
         }       
     }, [id])
