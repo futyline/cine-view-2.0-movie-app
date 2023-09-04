@@ -13,7 +13,7 @@ function Videos({videos, setIsVideoModalVisible, videoKey, setVideoKey}) {
                 <h2 className='text-white text-2xl font-medium'>Official Videos</h2>
             </div>
             <div className='flex gap-20 overflow-x-auto cursor-pointer'>
-                {videos?.results?.map((video) => (<VideoCard name={video?.name} movieId={video?.key} setVideoKey={setVideoKey} setIsVideoModalVisible={setIsVideoModalVisible}/>))}
+                {videos?.results?.map((video, id) => (<VideoCard key={id} name={video?.name} movieId={video?.key} setVideoKey={setVideoKey} setIsVideoModalVisible={setIsVideoModalVisible}/>))}
             </div>
             
             {/* <Carousel mediaType={mediaType === "movie" ? "movie" : "tv"} data={cast}/> */}

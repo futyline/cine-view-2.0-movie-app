@@ -32,8 +32,8 @@ function MovieCard({data, id, styles, mediaType, setId}) {
                 </div>     
 
                 <div className='mt-7'>
-                    <p className='text-white text-xl mb-2.5'>{data.title ? data.title : data.name}</p>
-                    <p className='text-gray-500 text-sm'>{data.release_date || data.first_air_date ? dayjs(data.release_date ? data.release_date : data.first_air_date).format("MMM D, YYYY") : "Invalid Date"}</p>
+                    <p className='text-white text-xl mb-2.5'>{data?.title ? data?.title : data.name}</p>
+                    <p className='text-gray-500 text-sm'>{data?.release_date || data?.first_air_date ? dayjs(data?.release_date ? data?.release_date : data?.first_air_date).format("MMM D, YYYY") : "Invalid Date"}</p>
                 </div>
             </div>
         </div>

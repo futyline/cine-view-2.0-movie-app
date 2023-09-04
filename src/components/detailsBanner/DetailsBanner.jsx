@@ -21,8 +21,8 @@ function DetailsBanner({setIsVideoModalVisible, videoKey, setVideoKey}) {
     const navigate = useNavigate();
     const {apiConfig} = useContext(AppContext);
 
-    const posterUrl = apiConfig?.poster && details?.poster_path ? apiConfig.poster + details.poster_path : PosterFallback;
-    const backdropUrl = apiConfig?.backdrop && details?.backdrop_path ? apiConfig.backdrop + details.backdrop_path : PosterFallback;
+    const posterUrl = apiConfig?.poster && details?.poster_path ? apiConfig?.poster + details?.poster_path : PosterFallback;
+    const backdropUrl = apiConfig?.backdrop && details?.backdrop_path ? apiConfig?.backdrop + details?.backdrop_path : PosterFallback;
 
     const directors = [];
     credits?.crew?.forEach((person) => {
@@ -91,7 +91,7 @@ function DetailsBanner({setIsVideoModalVisible, videoKey, setVideoKey}) {
                         <h2 className='text-white text-4xl font-bold mb-3 relative'>{details?.title || details?.original_title || details?.original_name }</h2>
                         <p className='text-gray-400 font-bold text-xl mb-3 relative'>{details?.tagline}</p>
                         <div className='flex flex-wrap gap-2 mb-3 relative'>
-                            {details?.genres.length > 0 && details?.genres.map((g, i) => (
+                            {details?.genres?.length > 0 && details?.genres.map((g, i) => (
                                 <div key={i} className='text-white bg-rose-500 rounded-xl py-1 px-2 text-center text-xs'>{g.name}</div>
                             ))}
                         </div>
