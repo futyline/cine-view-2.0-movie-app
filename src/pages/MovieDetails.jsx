@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 import DetailsBanner from '../components/detailsBanner/DetailsBanner';
@@ -32,9 +32,9 @@ function MovieDetails() {
 
     useEffect(() => {
         if (id) {
-            setTimeout(function(){
+           console.log(id)
                 window.location.reload();
-            },5000); 
+            
         }       
     }, [id])
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import ContentWrapper from './ContentWrapper';
 import { fetchDataFromApi } from '../api/tmdb';
 import Carousel from './carousel/Carousel';
 import { useParams } from 'react-router-dom';
@@ -35,5 +34,7 @@ function Similar({setId}) {
         </div>
     );
 }
+
+
 
 export default Similar;
