@@ -12,8 +12,8 @@ function MovieCard({data, id, styles, mediaType, setId}) {
 
     const {apiConfig} = useContext(AppContext);
 
-    const posterUrl = apiConfig && data.poster_path ? apiConfig.poster + data.poster_path 
-                    : apiConfig && data.known_for?.[0].poster_path ? apiConfig.poster + data.known_for?.[0].poster_path 
+    const posterUrl = apiConfig && data?.poster_path ? apiConfig.poster + data?.poster_path 
+                    : apiConfig && data?.known_for?.[0]?.poster_path ? apiConfig.poster + data?.known_for?.[0].poster_path 
                     : PosterFallback;
 
     return (
